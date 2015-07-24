@@ -28,9 +28,16 @@ public class FileUtils {
         // Prevents instantiation
     }
 
+    // public static File fileFromAsset(Context context, String assetName) throws IOException {
+    //     File outFile = new File(context.getCacheDir(), assetName + "-pdfview.pdf");
+    //     copy(context.getAssets().open(assetName), outFile);
+    //     return outFile;
+    // }
+
     public static File fileFromAsset(Context context, String assetName) throws IOException {
-        File outFile = new File(context.getCacheDir(), assetName + "-pdfview.pdf");
-        copy(context.getAssets().open(assetName), outFile);
+        File outFile = File.createTempFile("temp", ".pdf",
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS));
+        copy(context.getResources().getAssets().open(assetName), outFile);
         return outFile;
     }
 
